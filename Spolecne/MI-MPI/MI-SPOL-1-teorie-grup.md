@@ -105,3 +105,16 @@ Libovolná **podgrupa cyklické grupy** je opět **cyklická**
 V grupě řádu $n$ platí pro všechny prvky $a$, že $a^n = e$
 
 **Malá Fermatova věta**: Pro libovolné prvočíslo $p$ a libovolné $1 \leq a \lt p$ platí $a^{p-1} \equiv 1 \pmod p$
+
+---
+
+Buďte $G = (M, \circ_G)$ a $H = (N, \circ_H)$ dva grupoidy. Zobrazení $h: M \rightarrow N$ je **homomorfismus $G$ do $H$**, jestliže $\forall x,y \in M$ platí $h(x \circ_G y) = h(x) \circ_H h(y)$
+
+Buď $h$ izomorfismus $G=(M, \circ_G)$ do $H = (N, \circ_H)$. Potom $h(G) = (h(M), \circ_H)$ je grupa.
+* důsledky:
+    * neutrální prvek jedné grupy se zobrazí vždy na neutrální prvek druhé
+    * inverze se zachovají: $h(x^{-1}) = h(x)^{-1}$
+
+Dvě **nekonečné grupy jsou izomorfní**.
+Pro každé $n\in \N$ jsou dvě **cyklické grupy řádu $n$ izonorfní**.
+
