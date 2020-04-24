@@ -173,7 +173,7 @@ L(x;\lambda,\mu) = f(x) + \sum_{j=1}^m \lambda_jg_j(x) + \sum_{k=1}^p \mu_kh_k(x
 #### Postačující podmínka existence ostrého lokálního minima
 Nechť $f, g_j, j \in \hat m, h_k, k \in \hat p$ mají spojité všechny druhé parciální derivace na nějaké otevřené nadmnožině $M$. Pokud trojice $(x^*, \lambda^*, \mu^*) \in M \times \R^m \times \R^p$ splňuje následující podmínky, potom je $x^*$ bodem ostrého lokálního minima
 Podmínky:
-* *(optimalita)* $\forall i, \frac{\delta L}{\delta x_i} (x^*, \lambda^*, \mu^*)=0$ (nulový gradient Lagrangeovy funkce)
+* *(optimalita)* $\forall i, \frac{\delta L}{\delta x_i} (x^*, \lambda^*, \mu^*)=0$ (nulový gradient Lagrangeovy funkce podle $x$)
 * *(Karush-Kuhn-Tucker)* $\forall k \in \hat p$ platí buď $\mu_k^* = 0$ nebo $h_k(x^*) = 0$
 * *(podmínka 2. řádu)* pro každý vektor $0 \neq z \in \R^n$ splňující následující podmínky, platí $z^T \nabla^2_x L(x^*;\lambda^*; \mu^*) z > 0$ (PD Hessián za určitých podmínek). Podmínky:
     * $z^T \nabla g_j(x^*)= 0 (\forall j \in \hat m)$
