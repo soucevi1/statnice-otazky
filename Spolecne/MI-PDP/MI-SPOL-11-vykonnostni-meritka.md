@@ -93,19 +93,6 @@ $d$ a $B$ neklesající funkce $p$
 
 ---
 
-#### Typy paralelních konstrukcí
-
-* **Instruction Level Paralellism (ILP):** několik instrukcí lze vykonat souběžně, pokud jsou datově nezávislé
-    * Datové závislosti: 
-        * True data dependency: instrukce čte registr, do kterého předchozí musí nejdřív zapsat
-        * Output dependency: obě instrukce zapisují do stejného registru
-        * Anti-dependency: jedna instrukce musí registr přečíst dříve, než jí ho jiná přepíše
-* **Data paralelismus:** Prvky velké datové struktury rovnoměrně rozděleny mezi procesory, z nichž každý provádí synchronně výpočet nad přidělenou částí
-* **Iterační paralelismus:** Datově nezávislé iterace cyklu prováděny současně samostatnými procesory
-* **Funkční paralelismus:** Program rozdělen do nezávislých kusů kódu (strukturované bloky, funkce, rekurzivní volání...), které mohou být prováděny paralelně
-
----
-
 #### Měřítka složitosti sekvenčních algoritmů
 * $T_A^K(n)$: **časová složitost/doba výpočtu** sekvenčního algoritmu $A$, který řeší problém $K$ na vstupních datech velikosti $n$
 * $SL^K(n)$: **spodní mez** sekvenční časové složitosti řešení problému $K$ (nejhorší časová složitost nejlepšího možného sekvenčního algoritmu pro řešení $K$)
