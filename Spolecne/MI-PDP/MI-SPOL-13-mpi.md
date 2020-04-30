@@ -170,6 +170,36 @@ Ukončení neblokujících funkcí nezávisí na splnění žádných podmínek 
 
 ---
 
+#### Skupinové komunikační operace
+
+Všechny mají své blokjící i neblokující verze
+
+**All-to-one broadcast:**
+* `MPI_Bcast(void* data, int count, MPI_Datatype dtatype, int root, MPI_Comm comm)`
+* Proces `root` vysílá tutéž zprávu celému `comm`
+
+**All-to-one gather:**
+* `MPI_Gather(const void* sendbuf, int sendcount, MPI_Datatype st, void* recvbuf, int recvcount, MPI_Datatype rt, int root, MPI_Comm comm)`
+* Proces `root` posbírá data od celého `comm` (včetně sebe sama)
+* Ostatní procesy ignorují `recvbuf, recvcount, rt`
+* `MPI_Gatherv`: Proces `root` sbírá od každého procesu **různý počet dat** (počety předány v poli `recvcounts[]`, jejich ofsety v `recvbuf` jsou v parametru `displs[]`)
+
+**All-to-all gather/broadcast:**
+* `MPI_Allgather`
+* Podobné jako `MPI_Gather`, ale sbírají všichni
+
+**One-to-all scatter:**
+* `MPI_Scatter(const void *sendbuf, int sendcount, MPI_Datatype st, void *recvbuf, int recvcount, MPI_Datatype rt, int root, MPI_Comm comm)`
+* Proces `root` distribuuje data ostatním procesům včetně sebe sama
+* od AOG se liší pouze směrem
+* `MPI_Scatterv`: nutno určit, kolik dat se každému procesu pošle (ty to musí předem vědět)
+
+**All-to-all scatter:**
+* `MPI_Alltoall(const void* sendbuf, int sendcount, MPI_Datatype st, void* recvbuf, int recvcount, MPI_Datatype rt, MPI_Comm comm)`
+* Symetrická operace
+
+---
+
 #### Další MPI funkce
 
 * `MPI_Sendrecv`: přijetí i odeslání zprávy zároveň
