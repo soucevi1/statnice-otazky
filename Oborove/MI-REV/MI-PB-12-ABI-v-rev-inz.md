@@ -90,46 +90,8 @@ Konvence **vždy součástí deklarace** funkec/metody
 
 ---
 
-#### Reverzování funkcí
-
-Každá funkce má:
-* **Prolog** (volitelně): několik prvních instrukcí, které tvoří rámec zásobníku, alokují prostor pro lokální proměnné, zajístí zarovnání zásobníku a uloží všechny registry, které je nutno zachovat. Mohou uložit i kanárka nebo strukturu pro obsluhu výjimek
-    * Natavení `ebp` na hodnotu `esp`: pomocí `ebp` lze odkazovat na zásobník (`ebp+offset`$\geq8$ odkazuje na **argumenty**, `ebp-offset` odkazuje na lokální proměnné)
-    * Analytikovi řekne:
-        * Kolik bytů mají lokální proměnné
-        * Zarovnání zásobníku
-        * Využití rámce zásobníku
-        * Využití kanárků
-        * Využití SEH
-* **Tělo**
-* **Epilog** (volitelně): poslední instrukce funkce těsně před instrukcí `ret`, ruší rámec zásobníku, obnoví registry, ověří kanárka, volitelně vyčistí parametry ze zásobníku
-    * Analytikovi řekne:
-        * Kde funkce končí
-        * Testy kanárků
-        * Obnovení `EXCEPTION_REGISTRATION`
-        * Volací konvence (`ret XXX` vs `ret`)
-
-**Kanárky:**
-* Prevence stack smashing (úmyslné přepsání zásobníku)
-* Náhodné slovo vložené na zásobník
-* Před ukončením funkce zkontrolován, pokud nastane neshoda, program okamžitě ukončen
-
-**Strukturovaná obsluha výjimek:**
+#### Strukturovaná obsluha výjimek
 * Speficická pro Windows
 * Výjimka na systémové úrovni (dereference null pointeru) $\Rightarrow$ volán handler výjimky definovaný ve struktuře uložené na zásobníku
 * Využití: útočník přepíše pole `handler` ve struktuře `EXCEPTION_REGISTRATION`
     * Typicky přepíše na instrukce `pop-pop-ret` (odstraní návratovou adresu a `ExceptionRecord*`), `ret` skočí na začátek `EXCEPTION_REGISTRATION`, kde je pole `prev`, které útočník naplnil prvními 4 byty kódu exploitu (vyžaduje spustitelný zásobník)
-
-**Analýza rámce zásobníku:**
-
-* Rozdělení prostoru vytvořeného iinstrukcí `sub esp, __LOCAL_SIZE`
-* Analýza instrukcí pracujících se zásobníkem (`mov, push, lea, ...`)
-    * V každé instrukci zaměření na: offset (pozice v zásobníku), velikostní modifikátor (byte, word, dword...)
-
-**Analýza znamének typů:**
-* Podle aritmetických instrukcí a jim oodpovídajících instrukcí `cmp/test`, `jxx`:
-    * Pokud skok založen na příznaku `CF`, jde o bezznaménkový typ
-    * Pokud na `SF`/`OF`, jde znaménkový
-
-**Analýza API volání:**
-* Volání externích (zdokumentovaných) modulů -- lze odvodit typy, délky a význam parametrů
