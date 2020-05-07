@@ -18,6 +18,15 @@ $(\Z,+,\cdot)$ je okruh, ale $(\Z)N,+,\cdot)$ není
 
 Nenulové prvky $a,b \in M$ z okruhu $(M, +, \cdot)$ jsou **dělitelé nuly**, právě když $a\cdot b = b \cdot a = 0$. **Obor integrity** je komutativní okruh, ve kterém neexistují dělitelé nuly.
 
+*Navíc (MI-MKY):*
+* $J \subset R$ **ideál,** pokud:
+    * $J$ podokruh $R$
+    * $\forall a \in J, \forall b \in R: a\cdot b \in J, b \cdot a \in J$
+* **Faktorokruh okruhu $R$ vůči ideálu $J$:** $R / J = (\{[a]|a \in R\}, +, \cdot)$ 
+    * $[a]$: třída ekvivalence prvku $a$ podle relace $\equiv \pmod J$
+        * $[a] = a+J = \{a+r|r \in J\}$ 
+    * $a \equiv b \pmod J$, pokud $a-b \in J$
+
 ---
 
 Okruh $T = (M, +, \cdot)$ je **těleso**, pokud $(M \setminus \{0\}, \cdot)$ je **abelovská grupa**.
