@@ -57,7 +57,7 @@ V C++ zahrnuje:
 * jméno symbolu
 * `const`, `volatile` vlastnosti
 * `public`/`protected`/`private`
-* pokud funkce, tak argumenty, někdy i návratový typ
+* pokud jde o jméno funkce, tak argumenty, někdy i návratový typ
 * skalární/vektorový typ
 
 Pro analytika obsahuje velké množství **užitečných informací**
@@ -83,10 +83,81 @@ Pro analytika obsahuje velké množství **užitečných informací**
 * Kdo odstraňuje použité parametry (volající/volaný)
 
 Implicitní v 32bit C: `__cdecl`: Parametry na zásobníku, pořadí parametrů C, uklízí volající
-
 64bit Linux: Parametry v `rdi, rsi, rdx, rcd, r8, r9`, pořadí C, uklízí volaný
 
-Konvence **vždy součástí deklarace** funkec/metody
+Konvence **vždy součástí deklarace** funkce/metody:
+```c
+bool WINAPI MessageBeep(uint uType);
+```
+je ve skutečnosti
+```c
+bool __stdcall MessageBeep(uint uType);
+```
+Vynechání/změna způsobuje vážné chyby.
+
+---
+
+#### Třídy a struktury
+
+`struct` = `class`, rozdíl jenom ve výchozí ochraně prvků
+
+Všechna pole ve struktuře zarovnána podle pravidel ABI (použití vycpávacích bytů mezi nimi)
+
+**Určení velikosti struktury:**
+* **na zásobníku:**
+    * Typicky alokována instrukcí `sub esp, __LOCAL_SIZE`, kde velikost je součástí výrazu `__LOCAL_SIZE`
+* **na haldě:** 
+    * Alokace pomocí `new`/`malloc`/... -- velikost jako argument
+* **odvození z instrukcí,** které s ní pracují
+    * Iterace přes pole struktur
+    ```c
+    for(i=0; i<N; ++i)
+        pStructArray[i].f_Field = 0;
+    ```
+    V assembleru je proměnná `i` zvětšena o velikost jedné struktury.
+    * Kopírování struktury -- velikost musí být známá
+
+**Dědičnost:** instance rodičovské třídy uloženy v paměti těsně před aktuální třídou
+
+**Polymorfismus:**
+* Virtuální metody $\Rightarrow$ **tabulka virtuálních metod (VMT)**
+* **Vícenásobná dědičnost:** více VMT
+* VMT v paměti jako **první položka třídy**, za ní data této třídy, za nimi druhá VMT atd.
+* **Abstraktní třída** s nějakými definovanými metodami: taky má VMT, neimplementované virtuální metody jsou ve VMT nahrazeny adresou funkce `_purecall`
+    * `_purecall`: volá handler purecall (pokud existuje), potom ukončí program
+* **VMT v reverzním inženýrství:**
+    * VMT globální pro všechny instance daného typu $\Rightarrow$ ukazatel na VMT pomůže určit typ neznámého objektu
+    * Určení vícenásobné dědičnosti: nalezení ukazatelů na VMT v paměti objektu
+    * Zkoumání ukazatelů v každé VMT, idektifikace kódu patřícího danému objektu
+
+---
+
+#### Identifikace typové informace za běhu
+
+Operátory `typeid` (určení typu polymorfního objektu), `dynamic_cast` (přetypování na podtřídu/nadtřídu) -- **využití RTTI (Run Time Type Identification)**
+
+**Třída `type_info`:**
+* Návratový typ `typeid`
+* Obsahuje `char*` se jménem objektu
+
+**Operátor `dynamic_cast`:**
+* Typicky zpětné přetypování ze základní třídy směrem k odvozené
+* **Přetypování na `void*`:** volání funkce `__RTTICastToVoid`
+    * Funkce si vyzvedne ukazatel na `RTTICompleteObjectLocator` z pole těsně před VMT
+        * Struktura `RTTICompleteObjectLocator`:
+            * Obsahuje  ukazatel na `TypeDescriptor`
+        * Struktura `TypeDescriptor`:
+            * pointer na VMT
+            * manglované jméno typu
+* **Přetypování na ne-void:**
+    * Volání `RTDynamicCast`
+    * Každá VMT[-1] obsahuje ukazatel na `RTTICompleteObjectLocator`, který obsahuje jméno typu
+
+**Odhalení celé hierarchie tříd:**
+* `RTTICompleteObjectLocator` obsahuje ukazatel na `RTTIClassHierarchyDescriptor`
+* `Class Hierarchy Descriptor` obsahuje ukazatel na `RTTIBaseClassArray`
+* `Base Class Array` obsahuje pole ukazatelů na `RTTIBaseClassDescriptor`
+* `Base Class Descriptor` obsahuje `Type Descriptor` třídy (ten obsahuje její jméno)
 
 ---
 

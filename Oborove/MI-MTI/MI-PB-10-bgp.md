@@ -10,13 +10,13 @@
 **Interior gateway protocol (IGP):** v rámci 1 autonomního systému
 Např. Routing Information Protocol (RIP), Open Shortest Path First (OSPF), Enhanced Interior Gateway Protocol (EIGRP), IGRP
 
-**Exterior gateway protocol (EGP):** směrování mezi autonomními systémy (BGP)
+**Exterior gateway protocol (EGP):** výměna směrovacích informací mezi dvěma sousedními autonomními systémy (např. BGP)
 
 ---
 
 #### Border Gateway Protocol
 
-**BGP:** routing protokol na aplikační vrstvě
+**BGP:** routing protokol na aplikační vrstvě -- posílá data přes TCP, ergo musí být o vrstvu výš, což je v TCP/IP modelu aplikační vrstva (technicky by ale spadal do transportní vrstvy)
 
 **Princip:** hledání cesty skrz různé AS -- posloupnost čísel (každé pouze jednou).
 Nejednoznačná metrika -- každý AS upřednostňuje něco jiného.
@@ -59,7 +59,7 @@ $\Rightarrow$ **jediné využití:** redundantní multihoming (2 hraniční rout
     * Když posílám data přes jiný AS, nemůžu po něm vyžadovat, aby data směroval jinak/jinudy, než by směroval svá vlastní data.
 * **Synchronizace:** 
     * Problém u AS bez BGP: na jejich hranicích zahazovány BGP pakety (IGP neznají cesty mimo jejich AS)
-    * Synchronizace: IGP vidí stejné sítě jako BGP. IBGP distribuuje ven z AS (do EBGP) pouze ty směry, co cokáže ověřit přes IGP
+    * Synchronizace: IGP vidí stejné sítě jako BGP. IBGP distribuuje ven z AS (do EBGP) pouze ty směry, co dokáže ověřit přes IGP
     * Účel: ochrana před black-holing, když není IBGP full mesh
 * **Split horizon:** (IBGP)
     * V BGP jsou zakázány cykly (když je v BGP routě číslo mého AS, zahodit)

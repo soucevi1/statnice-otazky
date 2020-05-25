@@ -12,7 +12,7 @@ Proces automatického objevování užitečných informací ve velkém množstv�
 * Selekce dat
 * Čištění dat
 * Začlenění předchozích znalostí
-* Správná innterpretace výsledků
+* Správná interpretace výsledků
 
 **Kategorie:**
 * Prediktivní: zkoumání dat za účelem předpovědi budoucího vývoje
@@ -44,7 +44,7 @@ Proces automatického objevování užitečných informací ve velkém množstv�
 * Konstrukce profilu normálního provozu (např. HTTP dotaz: protokol=TCP, dstPort=80, numPackets=3...6: if port=80 and word3=HTTP/1.0 then word1=GET or POST)
 
 **Minnesota Intrusion Detection System (MINDS)**
-* Používá data minimg k unsupervised detekci anomálií a analýze asociačních patternů
+* Používá data mining k unsupervised detekci anomálií a analýze asociačních patternů
 ![](minds.png)
 * **Operace:**
     * **Feature Extraction:**
@@ -52,7 +52,7 @@ Proces automatického objevování užitečných informací ve velkém množstv�
         * Odvozené vlastnosti pro časové okno $T$ sekund: spojení s podobnými charakteristikami
         * Odvozené vlastnosti pro okno posledních $N$ připojení: podobné charakteristiky spojení z různých zdrojů
     * **Signature-based detection for known attacks:**
-        * Detekované útokky nejsou již dále analyzovány
+        * Útoky detekované podle signatury nejsou již dále analyzovány
     * **Detekce anomálií:**
         * Outlier detection přiřadí anomální skóre tokům
         * Lidi analyzují jen nejvíc anomální toky
@@ -158,8 +158,8 @@ Proces automatického objevování užitečných informací ve velkém množstv�
         * Analýza, souvislosti událostí
         * Log, report, alert
 * **Zadržení, eradikace incidentu a obnovení:**
-    * Činnosti nutné k tomu, aby se zabránilo dalším škodám (odpojení sysétmu, odebrání uživatelského přístupu, změna hesel...)
-    * Eradikace: idenfitikace, odstranění a oprava zranitelností, implementace dalších bezpečnostních kontrol
+    * Činnosti nutné k tomu, aby se zabránilo dalším škodám (odpojení systému, odebrání uživatelského přístupu, změna hesel...)
+    * Eradikace: identifikace, odstranění a oprava zranitelností, implementace dalších bezpečnostních kontrol
     Obnovení: pokračování v běžné činnosti
     * Tvorba chain of evidence: každé předání důkazu se loguje s podpisy
     * Sběr dat: offline/live -- forenzní nástroje

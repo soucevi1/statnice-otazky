@@ -10,7 +10,7 @@ IPv6: 128 bitů = 8 dvojic bytů
 IPv4: 32 bitů
 
 **Komprese adres:**
-IPv6: 0 na začátku dvojice se nepíšou, nulový blok `:0:`, `::` pouze jednou
+IPv6: 0 na začátku dvojice se nepíšou, nulový blok `:0:`, vypuštění nulových bloků `::` (pouze jednou)
 
 1 IPv6 rozhraní -- i **více adres**
 
@@ -21,7 +21,7 @@ IPv6: 0 na začátku dvojice se nepíšou, nulový blok `:0:`, `::` pouze jednou
 * Původně tvořeny na základě MAC adresy, dnes na základě hash
 
 **Unique-local adresy:**
-* Lokální použití privátních adres
+* Lokální použití privátních adres (obdoba privátních IPv4)
 * Střídavě je a není standard
 * Prefix `fc00::/7`
 * Je možnost NAT66, ale není důvod -- ULA k tomu nebyly navrženy
@@ -67,7 +67,7 @@ IPv6: 0 na začátku dvojice se nepíšou, nulový blok `:0:`, `::` pouze jednou
         * DNS 1, 2
         * options
     * Default GW: RDP
-    * Každé zařízení: `sitova_adresa:EUI-64`, kde EUI-64 je MAC adresa rozdělená napůl, mezi poloviny se vloží `fffe` a 7. bit se invertuje
+    * Každé zařízení si samo určí adresu: `sitova_adresa:EUI-64`, kde EUI-64 je MAC adresa rozdělená napůl, mezi poloviny se vloží `fffe` a 7. bit se invertuje
 * **Stateless address autoconfiguration (SLAAC):**
     * Bez DHCP serveru
     * Odposlech provozu: získání síťové adresy
@@ -86,7 +86,7 @@ RIPv3, OSPFv3, EIGRPv6
 
 OSPF a EIGRP potřebují **router ID:**
 Vypadá jako IPv4 adresa
-Ručně: `router-id 1.2.3.4`, nebo z definoané IPv4 adresy
+Ručně: `router-id 1.2.3.4`, nebo z definované IPv4 adresy
 Nedefinovaná IPv4, nenastaveno ručně $\Rightarrow$ nefunguje
 
 ---
@@ -102,9 +102,15 @@ Nedefinovaná IPv4, nenastaveno ručně $\Rightarrow$ nefunguje
 **Tunelling:**
 * IP over IP
 * Obyčejně pomocí GRE (generic route encapsulation) tunelu
-* Paket: `dest IPv6 | source IPv6 | data | CRC`
-* Nový paket: `dest IPv4 | source IPv4 | starý paket | CRC`
+* IPv6 aket: `dest IPv6 | source IPv6 | data | CRC`
+* Enkapsulace do IPv4 paketu: `dest IPv4 | source IPv4 | IPv6 paket | CRC`
 
 **6to4:**
-* IPv4 adresa `1.2.3.4` $\Rightarrow$ `00000001 | 00000010 | 00000011 | 00000100` = `0x01020304`
-* IPv6: prefix + IPv4 $\Rightarrow$ `prefix:0102:0304/64`
+* Přenos IPv6 paketů přes IPv4 síť bez konfigurace specifických tunelů
+* **Komunikace IPv4$\rightarrow$IPv6:** Jednoznačné mapování IPv4 na IPv6: 
+    * IPv4 adresa `1.2.3.4` $\Rightarrow$ `00000001 | 00000010 | 00000011 | 00000100` = `0x01020304`
+    * IPv6: prefix + IPv4 $\Rightarrow$ `prefix:0102:0304/64`
+* **Komunikace IPv6$\rightarrow$IPv4:** enkapsulace IPv6 do IPv4
+* **Relay router:** mezi IPv4 a IPv6 sítěmi
+    * IPv4 6to4 paket $\rightarrow$ relay: rozbalení, routing IPv6 paketu do IPv6 sítě
+    * IPv6 paket s 6to4 prexifem adresy $\rightarrow$ relay: Enkapsulace, odeslání do IPv4 sítě (na přeloženou adresu)

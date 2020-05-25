@@ -11,7 +11,7 @@ Množina $E = \{(x,y): y^2 = x^3 + ax + b\} \cup \{O\}$, kde $a,b \in \R$, $O$ j
 ![](ec-add.jpeg)
 * Pokud $p_1 = q_1$ a $P \neq Q$: $P \oplus Q = O$
 * Pokud $p_1 = q_1$ a $P = Q$ a $p_1 = 0$: $P \oplus Q = O$
-* Pokud $p_1 = q_1$ a $P \neq Q$ a $p_1 \neq 0$: $P \oplus Q$ je bod, který vznikne tak, že vedu tečnu na křivku v bodě $P(=Q)$. Tečna křivku protne v dalším bodě, jehož zrcadlový obraz podle osy $X$ je výsledkem
+* Pokud $p_1 = q_1$ a $P = Q$ a $p_1 \neq 0$: $P \oplus Q$ je bod, který vznikne tak, že vedu tečnu na křivku v bodě $P(=Q)$. Tečna křivku protne v dalším bodě, jehož zrcadlový obraz podle osy $X$ je výsledkem
 ![](ec-add2.png)
 
 **Matematická interpretace $P\oplus Q$:**
@@ -74,17 +74,24 @@ V multiplikativní notaci: $G[m] = \{g \in G| g^m = 0\}$.
 V aditivní notaci: $G[m] = \{g \in G| mg = 0\}$.
 $G$ abelovská $\Rightarrow G[m]$ grupa
 
+Platí: $K$ těleso.   $E(K)[m]$ je izomorfní $\Z_m^+ \times \Z_m^+$.
+Na $E(K)[m]$ lze hledět jako na dvourozměrný vektorový prostor se skaláry v $\Z_m^+$ -- existují body $P,Q$ t.ž. libovolný bod lze vyjádřit jako jejich lineární kombinaci $\alpha_1P + \alpha_2 Q$
+
 **Weilovo párování:**
-$P,Q \in E[m]$, tj. $mP = mQ = O$, $f_P, f_Q$ racionární funkce (podíl polynomů nad $\mathbb C$) na $E$ splňující $\text{div}(f_P) = m[P]-m[O]$ a $\text{div}(f_Q) = m[Q]-m[O]$
+$P,Q \in E[m]$, tj. $mP = mQ = O$
+$f_P, f_Q$ racionární funkce na $E$.
 Weilovo párování $P$ a $Q$:
 $$
 e_m(P,Q) = \frac{\frac{f_P(Q \oplus S)}{f_P(S)}}{\frac{f_Q(P \ominus S)}{f_Q(\ominus S)}}
 $$
-kde $S$ je libovolný bod $E$ ($S \notin \{O, P, \ominus Q, P \ominus Q\}$)
+kde $S$ je bod $E$ ($S \notin \{O, P, \ominus Q, P \ominus Q\}$)
+
+Weilovo párování **definuje zobrazení** 
+$E(GF(p))[m] \times E(GF(p))[m] \rightarrow GF(p)^\times$
 
 **Stupeň vnoření $E$ vzhledem k $m$:**
 $E = E(GF(p^l)), m \in \N$ t.ž. $\gcd(m,p) = 1$ a $m$ dělí $\# E(GF(p^{l}))$.
-Stupeň vnoření $E$ vzhledem k $m$ je nejmenší $k$ takové, že $E(GF(p^{lk}))$ je izomorfní $\Z_m^+ \times \Z_m^+$
+Stupeň vnoření $E$ vzhledem k $m$ je nejmenší $k$ takové, že $E(GF(p^{lk}))[m]$ je izomorfní $\Z_m^+ \times \Z_m^+$
 Ekvivalentní s nejmenším $k$ takovým, že $p^{lk} \equiv 1 \pmod m$
 
 **MOV algoritmus:**
@@ -97,7 +104,7 @@ $Q$ je násobek $P$
 $k$ je stupeň vnoření $E$ vzhledem k $l$
 Umíme PDL v $GF(p^k)$
 
-* Vypočti $\# E(GF(p^k))$ (pokud není $k$ velké, lze polynomiálně)
+* Vypočti $N = \# E(GF(p^k))$ (pokud není $k$ velké, lze polynomiálně)
 * Zvolit náhodně $T \in E(GF(p^k))$ tak, že $T \notin E(GF(p))$
 * Vypočítat $T' = \frac{N}{l}T$. Pokud $T'=O$, zvolit jiné $T$
 * Vypočítat Weilova párování:

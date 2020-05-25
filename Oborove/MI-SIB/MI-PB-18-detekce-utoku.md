@@ -8,7 +8,7 @@
 **Aktivní obrana:** ofenzivní techniky, ale v defenzivním přístupu
 Pasti v systému, na které útočník narazí
 
-**Cyber Deception:** Proces oklamání útočníka tak, aby byl zpomalen a zmaten tak, aby $t_{\text{detekce}} + t_{\text{reakce}} \lt t_{\text{útok}}$
+**Cyber Deception:** Proces oklamání útočníka tak, aby byl zpomalen a zmaten -- aby $t_{\text{detekce}} + t_{\text{reakce}} \lt t_{\text{útok}}$
 
 **Právní dopady:**
 * Matení a obfuskace bez problému
@@ -64,7 +64,7 @@ Založené na statistickém rozdělení síťového provozu
 
 Nejjednodušší statistický model: spočtení parametrů hustoty pravděpodobnosti pro každou známou třídu provozu, otestovat neznámý vzorek a určit, do které třídy patří
 
-**Parametrický** test: předpokládá znalost rozdělení a odhadhu jeho parametrů z daných dat
+**Parametrický** test: předpokládá znalost rozdělení a odhadu jeho parametrů z daných dat
 **Neparametrický:** nepředpokldá znalost rozdělení ani parametrů
 
 **Ne-statistický přístup:** Protokoly deterministické -- detekovat anomálie lze stavovou analýzou
@@ -103,7 +103,7 @@ Nejjednodušší statistický model: spočtení parametrů hustoty pravděpodobn
 **Zahlazování:**
 * Exponential Weighted Moving Average (EWMA):
     * Krátkodobé vrcholy - produkce falešných poplachů
-    * Zahlazení pozorovaných charakteristik při dnaém koeficiantu zahlazení
+    * Zahlazení pozorovaných charakteristik při daném koeficientu zahlazení
 
 **Výkonnostní metriky:**
 * Test Power:

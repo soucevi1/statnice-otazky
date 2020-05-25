@@ -5,7 +5,7 @@
 
 #### Fyzicky neklonovatelné funkce
 
-Využívají **jedinečných fyzikálních vlastností** kařdého zařízení
+Využívají **jedinečných fyzikálních vlastností** každého zařízení
 
 Vznikají působením **náhodných a nekontrolovatelných vlivů** během výrobního procesu
 
@@ -27,7 +27,7 @@ Výstup: odpověď (response)
 * Ochrana duševního vlastnictví
 
 **Požadované vlastnosti:**
-* **Snadná vyhodnotitlenost:** čas, plocha, napíjení, spotřeba, cena
+* **Snadná vyhodnotitlenost:** čas, plocha, napájení, spotřeba, cena
 * **Reprodukovatelnost:** pro daný PUF a výzvu vždy stejná odpověď
     * Vliv fyzikálních podmínek -- ve výstupu jsou chyby (dostatečně malé ale nevadí)
 * **Jedinečnost:** odpovědi na různých zařízeních pro stejnou výzvu by se měly co nejvíc lišit (ideálně 50 %)
@@ -94,7 +94,7 @@ Pomocná data: informace pro samoopravný kód, konfigurace PUF
 ---
 
 #### Generátory pseudonáhodných čísel (PRNG)
-Pracuje **deterministicky** -- pokud použita zvonu stejná počáteční hodnota (seed), vygeneruje stejnou posloupnost
+Pracuje **deterministicky** -- pokud použita znovu stejná počáteční hodnota (seed), vygeneruje stejnou posloupnost
 
 Snadná realizace (algoritmus, automat), rychlý
 
@@ -159,7 +159,7 @@ Fyzikální děj náhodný ze své podstaty, proces silně citlivý na nepatrné
 * chování uživatele
 
 **Zpracování výstupu TRNG:**
-Vylepšení statistický vlastností: bias (poměr 0 a 1), entropie, runs (dlouhé posloupnosti 0 nebo 1)
+Vylepšení statistických vlastností: bias (poměr 0 a 1), entropie, runs (dlouhé posloupnosti 0 nebo 1)
 * **XOR korektor:** Ze 2 nebo více bitů vstupu vytvoří jden na výstupu
 Lepší bias, entropie, zachovává nezávislost výstupu, jednoduchý
 * **Von Neumannův korektor:** Dvojice $00$ a $11$ se zahodí, jinak $01 \rightarrow 1$, $10 \rightarrow 0$
@@ -179,7 +179,7 @@ Většina testů vyvinuta pro PRNG $\Rightarrow$ nezjistí některé problémy T
 * **Test $n$-tic:** posloupnost se rozdělí na $k$-bitové úseky, vyhodnocení četnosti $k$-bitových sekvencí
 * **Spektrální test:** Fourierova transformace (posloupnost jako digitální signál, hledání periodických složek)
 * **Testy autokorelací:** opakování stejných nebo podobných úseků v posloupnosti
-* **Komprese:** skutečně náhodnou sekvenci nelze zkomprimovat
+* **Komprese:** skutečně náhodnou sekvenci nelze bezztrátově zkomprimovat
 
 Existují testovací baterie (FIPS 140-1, NIST Statistical Test Suite, Diehard)
 

@@ -40,8 +40,8 @@ Hodně měření, průměrování naměřených průběhů, snižuje $\text{SNR}
 
 **Základní myšlenka:**
 * Zvolit vnitřní hodnotu šifry $v$, která **závisí na datech a tajném klíči:** $v = f(d,k)$
-* **Naměřit průběhy spotřeby:** tvorba matice  $\mathbf T = (t_{ij})$ během šifrování dat $d_i$ ($j$ uvádá počet vzorků v jednom průběhu)
-* Sestavit matici $\mathbf V = (v_{ij})$ **hypotetických hodnot uvnitř šifry** pro všechny možné hodnoty klíče a naměřené průběhy
+* **Naměřit průběhy spotřeby:** tvorba matice  $\mathbf T = (t_{ij})$ během šifrování dat $d_i$ ($j$ udává počet vzorků v jednom průběhu)
+* Sestavit matici $\mathbf V = (v_{ij})$ **hypotetických hodnot uvnitř šifry** pro všechny možné hodnoty klíče a hodnoty vstupních dat
 * Pomocí modelu spotřeby vytvořit z matice $\mathbf V$ matici $\mathbf H = (h_{ij})$ **hypotetické spotřeby** (aplikace modelu spotřeby na naždou hodnotu v matici $\mathbf V$)
 * **Statisticky vyhodnotit,** která hypotetická hodnota klíče nejlépe sedí na naměřené hodnoty v každý individuální čas
 
@@ -56,7 +56,7 @@ Typicky $v = \text{SBOX}(d \oplus k)$ (hodnota po prvním AddRoundKey a SubBytes
 Matice $\mathbf T$
 
 **Matice hypotetických vnitřních hodnot:** 
-$\mathbf V$, kde $\mathbf V_{ij} = \text{SBOX}(d_i \oplus k_i)$
+$\mathbf V$, kde $\mathbf V_{ij} = \text{SBOX}(d_i \oplus k_j)$
 
 **Možné modely spotřeby:** 
 * Hammingova váha: $HW(x) = \# \text{ jedniček v binárním zápisu } x$
@@ -161,4 +161,4 @@ Kombinace bodů:
     * $|t_x - t_y|$
     * $(t_x + t_y)^2$
     * FFT
-* S maticí $\tilde \mathbf V$ se provede klasicky DPA jako s $\mathbf V$ -- využití sdruženého rozdělení dvou hodnot, v DPa je s nimi pracováno jako s jednou $w = u \oplus v$
+* S maticí $\tilde \mathbf V$ se provede klasicky DPA jako s $\mathbf V$ -- využití sdruženého rozdělení dvou hodnot, v DPA je s nimi pracováno jako s jednou $w = u \oplus v$

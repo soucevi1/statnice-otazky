@@ -66,13 +66,13 @@ Pokud instrukce získaná lineárním průchodem nebyla nalezena i rekurzivním,
 
 **Použití:** zabránění reverzování schémat sériových čísel, ochrana proti kopírování, zabránění analýzy malwaru
 
-**Cíl:** Zmást disassembler, debuffer, decompiler a analytika
+**Cíl:** Zmást disassembler, debugger, decompiler a analytika
 
 **Metriky:**
 * **Potence:** jak moc transformace $P$ na $P'$ zmate lidského čtenáře
 $\mathcal T_{pot}(P) = \frac{E(P')}{E(P)}-1$, kde $E(P)$ je složitost $P$ podle nějaké metriky (délka programu, cyklomatická složitost, složitost vnoření, složitost datového toku...).
 * **Odolnost:** jak obtížné je odstranit transformaci automatickým deobfuskátorem
-$\mathcal T_{res} = \text{Resilience}(\mathcal T(_{\text{práce deobfuskátoru}}), \mathcal T_{\text{práce programátora}})$
+$\mathcal T_{res} = \text{Resilience}(\mathcal T_{\text{práce deobfuskátoru}}, \mathcal T_{\text{práce programátora}})$
 kde $\mathcal T_{\text{práce programátora}}$ je množství času potřebné pro vytvoření automatického deobfusátoru, který sníží $\mathcal T_{pot}$, a $\mathcal T_{\text{práce deobfuskátoru}}$ je doba běhu a velikost prostoru, které auto-deobfuskátor použije.
 $\mathcal T_{res} \in \{\text{triviální}, \text{slabá}, \text{silná}, \text{plná}, \text{jednosměrná}\}$
 ![](res.png)
@@ -92,7 +92,7 @@ $\mathcal T_{res} \in \{\text{triviální}, \text{slabá}, \text{silná}, \text{
     * **Transformace agregace:** rozdělují výpočty, které patří k sobě
         * Inlining: tělo funkce se rozkopíruje do míst volání
         * Outlining: část kódu vytržena, přeměněna na samostatnou funkci
-        * Interleaving: spojení kódu a argumentů dvou nebo více funkcí do jedno funkce s extra argumentem, který rozdohuje o tom, který kód které funkce se vykoná
+        * Interleaving: spojení kódu a argumentů dvou nebo více funkcí do jedné funkce s extra argumentem, který rozdohuje o tom, který kód které funkce se vykoná
         * Klonování: Více instancí jedné třídy, které volají funkce nezávislé na konkrétní instanci
         * Transformace smyček:
             * Loop blocking: rozdělení těla smyčky tak, aby se její části vešly do cache
@@ -116,5 +116,5 @@ $\mathcal T_{res} \in \{\text{triviální}, \text{slabá}, \text{silná}, \text{
         * Předání redundantních argumentů
         * Paralelizace kódu
             * Vlákna provádí datově nezávislé bloky kódu zároveň
-            * Datově závislý kód: Každý kus kódu provádí sekvenčně jiné vlákno
+            * Datově závislý kód: Každý kus kódu provádí sekvenčně jiné vlákno, ostatní čekají
             * Vlákna mohou provádět neužitečný kód

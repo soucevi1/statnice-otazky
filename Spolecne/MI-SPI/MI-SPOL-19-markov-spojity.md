@@ -52,6 +52,19 @@ $$
 P(T> A+s | T>A) = P(T>s)
 $$
 
+**Markovskost Poissonova procesu:**
+* bezpaměťovost: $\{N_{t+s}-N_s|t \geq 0\}$ Poissonův proces s intenzitou $\lambda$, pak $N_{t+s}-N_s$ jsou nezávislé na $N_r$ pro $0 \leq r \leq s$
+* přírůstky nezávislé $\Rightarrow$ 
+$$
+P(N_{t+s} = j | N_t = i, N_{t_{n-2}}=k_{n-2}, .., N_{t_0} = k_0) = 
+$$
+$$
+P(N_{t+s} - N_t = j-i | N_t = i, N_{t_{n-2}}=k_{n-2}, ..., N_{t_0} = k_0) =
+$$
+$$
+P(N_{t+s} - N_t = j-i) = \frac{(\lambda s)^{j-i}}{(j-i)!}e^{-\lambda s}
+$$
+
 ---
 
 #### Markovský řetězec se spojitým časem

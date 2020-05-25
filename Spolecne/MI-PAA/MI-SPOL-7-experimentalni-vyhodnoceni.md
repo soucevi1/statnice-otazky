@@ -3,9 +3,36 @@
 
 ---
 
+#### Algoritmy
+
+**Aproximativní algoritmus:**
+* Každou instanci řeší v poly čase s relativní chybou $\epsilon$
+
+**Randomizovaný algoritmus:** 
+* Algorimus, který je založen na náhodné volbě
+* Vstupy: vstup instance, náhodná čísla
+* V průměrném případě statistická chyba
+* **Monte Carlo:** 
+    * dosažený výsledek je náhodná proměnná, čas běhu pevný 
+    * *přesný čas na projetí okruhu formulí, ale nevím, jak se umístím*
+    * náhodné procházky s omezeným počtem kroků
+* **Las Vegas:** 
+    * vždy přesné řešení, čas běhu náhodná proměnná 
+    * *kasíno mě zaručeně obere, ale nevím kdy*
+    * Quicksort
+* **Výhody:**
+    * strukturní jednoduchost
+    * očekávaná kvalita výsledků může být lepší než zaručená kvalia aproximativních algoritmů
+    * zlepšení kvality nezávislým opakováním
+**Nevýhody:**
+    * Musím se vzdát buď determinisického času, nebo přesnosti řešení
+
+---
+
 #### Experiment:
-* **plán experimentu** 
+* **otázka**
     * *co chci zjistit?*
+* **plán experimentu** 
     * spuštění algoritmu:
     instance$_1 \rightarrow$ výsledek$_1$
     instance$_2 \rightarrow$ výsledek$_2$
@@ -25,7 +52,16 @@ veličina$_a$ instance$_2\rightarrow$ veličina$_b$ výsledku$_2$
 * nezávislá na veličinách, které v ní nejsou zahrnuty (vyloučení ostatních vlivů, předpoklad jejich statistického rozložení)
 * musí vypovídat o významné závislosti (testy hypotéz)
 
-Veřejně dostupné zkušební sady (benchmarks)
+**Co se hodnotí:**
+* **kvalita řešení:** absolutní (pokud znám správná řešení), relativní (pokud porovnávám dvě heuristiky)
+* **výpočetní náročnost:** náročné na měření -- čas výpočtu zahrnuje všechny vlivy (i implementačně/platformě závislé)
+**Měřítko výpočetní složitosti:** počet testovaných stavů
+
+**Výběr instancí:**
+* **Náhodně generované:** škálovatelné, rovnoměrně rozdělené
+* **Náhodně generované, s ohledem na experiment:** přesné pozorování chování algoritmu
+* **Standardní benchmarky:** příklady z praxe, nerovnoměrné rozdělení
+
 
 ---
 

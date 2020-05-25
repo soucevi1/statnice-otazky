@@ -99,15 +99,31 @@ Kopule je někdy t-norma, vždy při $C(x,y) = f(f^{-1}(x) + f^{-1}(y))$, kde $f
 
 **Sklarova věta:** $H$ je rozložení $(X,Y) \Leftrightarrow$ existuje kopule $C$ splňující $H(X,Y) = C(F(X), G(Y))$ s pravděpodobností 1 
 
+**Fuzzy zobrazení** $U$ do $\hat U$ pro $A=(U, \mu_A):$
+Zobrazení $u \rightarrow F_A(u) = (\hat U, \mu_{F_A(u)})$
+**Mamdaniho metoda konstrukce $F_A(u)$:** na základě pravidel
+$\text{if}(U, \mu_{A_1}) \text{ then } (\hat U, \mu_{B_1}) ..., \text{if}(U, \mu_{A_p}) \text{ then } (\hat U, \mu_{B_p})$
+$F_A(u) = \bigcup_{i=1}^p (B_i \cap \mu_{A_i}(u))$ při Gödelových $\top, \bot$
+$\mu_{F_A(u)}(\hat u) = \max (\min(\mu_{B_1}(\hat \mu), \mu_{A_1}(\hat \mu)), ..., \min(\mu_{B_p}(\hat \mu), \mu_{A_p}(\hat \mu)))$
+
 ---
 
 **Defuzzifikace:** zobrazení fuzzy množiny do jejího univerza: $(U, \mu_A) \rightarrow U$
 
-Metoda těžiště
+* Maximum $\mu_A$
 
-Sugenův integrál: $\int_U^{(S)}f dm = \max_i \min(f(x_{(i)}, m(A_i)))$, kde $A_i = \{x_{(1)}, ... , x_{(k)}\}$ , $m$ je fuzzy míra
+* Metoda těžiště: $u_{CG} = \frac{\int_S u \mu_A(u) du}{\int_S \mu_A(u) du}$
 
-Choquetův integrál: $\int_U^{(C)}f dm = \sum_{i=1}^kf(x_{(i)})(m(A_i)-m(A_{i-1}))$
+
+**Fuzzy integrály:** kombinace hodnot integrované funkce T-normami a T-konormami
+* **Sugenův integrál:** 
+$\int_U^{(S)}f dm = \max_i \min(f(x_{(i)}, m(A_i)))$, 
+Alternativní zápis: $ \bot_i (f(x_{(i)}\top m(A_i))$
+kde $A_i = \{x_{(1)}, ... , x_{(k)}\}$ , $m$ je fuzzy míra
+($m(U) = 1, A \subset B \Rightarrow m(A) < m(B)$)
+
+* **Choquetův integrál:** 
+$\int_U^{(C)}f dm = \sum_{i=1}^kf(x_{(i)})(m(A_i)-m(A_{i-1}))$
 
 -----
 

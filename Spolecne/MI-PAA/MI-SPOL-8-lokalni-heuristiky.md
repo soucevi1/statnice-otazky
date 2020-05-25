@@ -73,17 +73,27 @@ Pořadí procházení ovlivní výsledek -- nutno randomizovat
 
 ---
 
+
+**Globální minimum:** optimální řešení instance, žádný ze stavů není lepší
+
+**Lokální minimum:** Všechny jeho souední stavy mají horší hodnotu optimalizačního kritéria.
+
+**Únik z lokálních minim:**
+* balanc mezi:
+    * **diverzifikace:** rovnoměrný průzkum stavového prostoru *(ochota připustit akci vedoucí k horšímu řešení)*
+    * **intenzifikace:** konverence k finálnímu řešení *(neochota připouštět horší řešení)*
+* **Metody:**
+    * zvětšení okolí stavu
+    * start z někoilka různých počátečních konfigurací
+    * vracet se z větví, které nevedou k řešení
+    * zpracování více stavů najednou
+    * restriktivní opatření (tabu search)
+
+---
+
 #### Pohyb v prohledávacím prostoru
 * typicky ne úplné ani systematické strategie
 * krok prohledávání: vyber proměnnou, vyber její hodnotu
 * možnost odvolat nastavení proměnné
 
 ---
-
-**Globální minimum:** optimální řešení instance, žádný ze stavů není lepší
-
-**Lokální minimum:** Všechny jeho souední stavy mají horší hodnotu optimalizačního kritéria.
-
-**Únik z lokálních minim** -- balanc mezi:
-* **diverzifikace:** rovnoměrný průzkum stavového prostoru *(ochota připustit akci vedoucí k horšímu řešení)*
-* **intenzifikace:** konverence k finálnímu řešení *(neochota připouštět horší řešení)*

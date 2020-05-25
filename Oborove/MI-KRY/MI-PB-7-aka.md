@@ -66,6 +66,8 @@ Příklad:
 $(2,3,4) >_{lex} (2,2,6)$, protože $\alpha - \beta = (0,1,-2)$
 $\Rightarrow x^2y^3z^4 >_{lex} x^2y^2z^6$
 
+Podoba Groebnerovy báze závisí na zvoleném uspořádání -- GRLEX je nejlepší z hlediska složitosti
+
 Pokud $f = \sum_\alpha a_\alpha x^\alpha$ nenulový polynom nad $k[x_1, ..., x_n]$ a $>$ monomiální uspořádání:
 * **Multidegree $f$:** $\text{multideg}(f) = \max(\alpha \in \N_0^n: a_\alpha \neq 0)$
 * **Leading coefficient $f$:** $\text{LC}(f) = a_{\text{multideg}(f)} \in k$
@@ -116,26 +118,36 @@ $f,g \in k[x_1, ..., x_n]$ nenulové polynomy
 $$
 S(f,g) = \frac{x^\gamma}{\text{LT}(f)} \cdot f - \frac{x^\gamma}{\text{LT}(g)} \cdot g 
 $$
+* Příklad:
+$f = x^3y^2-x^2y^3 + x$
+$g = 3x^4y + y^2$
+Potom $\text{multideg}(f) = (3,2), \text{multideg}(g) = (4,1) $ 
+$\Rightarrow \gamma = (4,2)$
+$$
+S(f,g) = \frac{x^4y^2}{x^3y^2}\cdot f - \frac{x^4y^2}{3x^4y} \cdot g = x\cdot f - (1/3)\cdot y \cdot g = -x^3y^3 + x^2 - (1/3)y^3
+$$
 
 **Buchbergerovo kritérium:**
-$I$ ideál polynomů. Potom báze $G = \{g_1, ..., g_t\}$ v $I$ je Groebnerova báze $I$, právě když pro všechny dvojice $i \neq j$ je zbytek po dělení $S(g_i, g_j)$ bází $G$ je nula
+$I$ ideál polynomů. Potom báze $G = \{g_1, ..., g_t\}$ v $I$ je Groebnerova báze $I$, právě když pro všechny dvojice $i \neq j$ zbytek po dělení $S(g_i, g_j)$ bází $G$ je nula
 *(Jednoduchý důkaz, že báze je GB. Vede k algotimu konstrukce GB pro ideál)*
 
 **Buchbergerův algoritmus:**
 $I = \left< f_1, ..., f_s \right>$ ideál polynomů
-* **Vstup:** $F = (f_1, ..., f_s)$,
-* **Výstup:** Groebnerova báze $G = (g_1, ..., g_t)$ ideálu $I$, kde $F \subset G$
+* **Vstup:** $F = (f_1, ..., f_s)$, *(nějaká báze $I$)*
+* **Výstup:** Groebnerova báze $G = (g_1, ..., g_t)$ ideálu $I$, kde $\left< F \right> = \left< G\right> $
+
 ```
 G = F
-G' = G
-dokud G == G':
+opakuj:
     G' = G
     pro každou dvojici p,q z G', kde p != q:
         S = zbytek po dělení S(p,q) množinou G'
         pokud S != 0:
             G = G sjednoceno {S}
+dokud G == G'
 ```
 
 **GB v algebraické kryptoanalýze:**
-* Ze soustavy rovnic sestavit Groebnerovu bázi $G$ Buchbergovým algoritmem 
-* Soustava polynomiálních rovnic z $G$ má stejnou množinu řešení jako původní soustava (řešení závisí pouze na generovaném ideálu), řešení soustavy GB je jednodušší *(proměnné se "oddělí od sebe" -- místo členů typu $3x^2y^9z^7$ obsahují rovnice více členů s pouze jednou proměnnou)*
+* Ze soustavy rovnic sestavit Groebnerovu bázi $G$ Buchbergerovým algoritmem 
+* Soustava polynomiálních rovnic z $G$ má stejnou množinu řešení jako původní soustava (řešení závisí pouze na generovaném ideálu -- **afinní variety** bází se rovnají)
+* Řešení soustavy GB je jednodušší *(proměnné se "oddělí od sebe" -- místo členů typu $3x^2y^9z^7$ obsahují rovnice více členů s pouze jednou proměnnou -- matematicky **nepodloženo,** někde jsem to četl)*

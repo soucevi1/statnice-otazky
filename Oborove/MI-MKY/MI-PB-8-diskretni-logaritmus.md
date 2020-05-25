@@ -140,8 +140,8 @@ Známe faktorizaci $\text{ord}(g) = N = q_1^{l_1}q_2^{l_2}...q_k^{l_k}$.
 **Složitost 1. kroku:** Umíme řešit PDL $\tilde g^{\tilde x} = \tilde h$ v čase $O(S(q^l))$. Potom PDL $g^x = h$ umíme řešit v čase $O(\sum_{i=1}^k S(q_i^{l_i}) + \log N)$
 
 **2. část algoritmu:** Vezme malé PDL z první části a rozdělí je na ještě menší PDL, které odpovídají prvním mocninám prvočísel v rozkladu $N$ (Pokud rozklad $N$ obsahuje člen $p^i$, pak první část umožňuje řešit malý PDL v grupě řádu $p^i$. Druhá část umožňuje řešit $i$-krát v grupě řádu $p$.)
-* **Předpoklad:** z první části zbyly pouze podgrupy řádu $g^l$
-* Zapsat neznámé $x$ jako $x= x_0 + x_1g + x_2q^2 + ... + x_{l-1}q^{l-1}$ pro $0 \leq x_i < q
+* **Předpoklad:** z první části zbyly pouze podgrupy řádu $q^l$
+* Zapsat neznámé $x$ jako $x= x_0 + x_1q + x_2q^2 + ... + x_{l-1}q^{l-1}$ pro $0 \leq x_i < q
 $
 * Postupně hledat $x_0,...,x_{l-1}$, kde pro $x_i$ platí
 $$
@@ -150,13 +150,13 @@ $$
 
 Třetí krok plyne z toho, že např. při hledání  $x_0$: 
 $$
-h^{q^{l-1}} = (g^x)^{q^{l-1}} = g^{(x_0 + x_1g + x_2q^2 + ... + x_{l-1}q^{l-1})\cdot q^{l-1}} = g^{x_0q^{l-1}}\cdot \underbrace{g^{(x_1+x_2q + ... +x_{l-1}q^{l-2})\cdot q^e}}_{\text{neutr. prvek}}
+h^{q^{l-1}} = (g^x)^{q^{l-1}} = g^{(x_0 + x_1q + x_2q^2 + ... + x_{l-1}q^{l-1})\cdot q^{l-1}} = g^{x_0q^{l-1}}\cdot \underbrace{g^{(x_1+x_2q + ... +x_{l-1}q^{l-2})\cdot q^l}}_{\text{neutr. prvek (mocnění na násobek řádu grupy)}}
 $$
 Prvek $x_0$ se získá řešením PDL $x_0 = \log_{g^{q^{l-1}}}h^{q^{l-1}}$
 
 Pro nalezení prvku $x_1$ platí:
 $$
-h^{q^{l-2}} = (g^x)^{q^{l-2}} = g^{(x_0 + x_1g + x_2q^2 + ... + x_{l-1}q^{l-1})\cdot q^{l-2}} = g^{x_0q^{l-2}}\cdot g^{x_1q^{l-1}} \cdot\underbrace{g^{(x_2 + ...x_{l-1}q^{l-3})\cdot q^e}}_{\text{neutr. prvek}}
+h^{q^{l-2}} = (g^x)^{q^{l-2}} = g^{(x_0 + x_1q + x_2q^2 + ... + x_{l-1}q^{l-1})\cdot q^{l-2}} = g^{x_0q^{l-2}}\cdot g^{x_1q^{l-1}} \cdot\underbrace{g^{(x_2 + ...x_{l-1}q^{l-3})\cdot q^l}}_{\text{neutr. prvek}}
 $$
 Prvek $x_1$ se získá řešením PDL $(g^{q^{l-1}})^{x_1} = (hg^{-x_0})^{q^{l-2}}$
 
@@ -178,7 +178,7 @@ Algoritmus řešící PDL, ale pouze na specifických grupách (typicky $G = GF(
 * Náhodně vybrat $l \in \N, l < \#G$
 * Spočítat $g^l$
 * Otestovat, zda $g^l = \prod_{i=1}^tp_i^{c_i}$ *(test, jestli $g^l$ jde rozložit na prvky zvolené báze)*
-    * Pokud ano, $l \equiv \sum_{i=1}^t c_i \log_g p_i \pmod{\#G}$ *(soustava rovnic, j jich potřeba najít $t$ lin. nezávislých)*
+    * Pokud ano, $l \equiv \sum_{i=1}^t c_i \log_g p_i \pmod{\#G}$ *(soustava rovnic, je jich potřeba najít $t$ lin. nezávislých)*
 * Řešit $l_j \equiv \sum_{i=1}^t c_{ij} \log_g p_i \pmod{\#G}$ pro neznámé $\log_gp_i$
 
 **Řešení PDL:**
@@ -189,16 +189,17 @@ Algoritmus řešící PDL, ale pouze na specifických grupách (typicky $G = GF(
 $$
 \log_g h \equiv \sum_{i=1}^t d_i \log_g p_i +k \pmod{\#G}
 $$
+Kde se dosadí $\log_g p_i$ získané z předvýpočtu.
 
 **Volba báze:**
-* Pro $G = \Z_p^\times$ je $S = \{p|p \text{ je prvočíslo}, p< B\}$
-* Pro $G = GF(p^n)$ je $S = \{f|f \text{ je ireducibilní}, \text{deg}(f) < B\}$
+* Pro $G = \Z_p^\times$ je $S = \{p:p \text{ je prvočíslo}, p< B\}$
+* Pro $G = GF(p^n)$ je $S = \{f:f \text{ je ireducibilní}, \text{deg}(f) < B\}$
 
 **$B$-hladká čísla:** čísla, která nemají v prvočíselném rozkladu faktor větší než $B$
-**$B$-hladký polynom:** v rozkladu na ireducibilní polynomy nemá žádný faktor steupně vyššího než $B$
+**$B$-hladký polynom:** v rozkladu na ireducibilní polynomy nemá žádný faktor stupně vyššího než $B$
 
 **Funkce $L_{q}[\alpha, c]$:** funkce definovaná jako $L_q[\alpha, c] = \exp(c(\ln q)^\alpha(\ln \ln q)^{1-\alpha})$, kde $c>0, 0<\alpha<1$
-* bežně používaná pro odhad složitosti subexponenciálních algoritmů (algoritmů $O(e^{f(k)})$, kde $f(k) = o(k)$ -- hodně malý exponent)
+* běžně používaná pro odhad složitosti subexponenciálních algoritmů (algoritmů $O(e^{f(k)})$, kde $f(k) = o(k)$ -- hodně malý exponent)
 * $\alpha$ uvádá "míru exponenciality"
     * $O(L_q[1, c]) = O(e^{c\ln q}) = O(q^c)$ -- plně expoenciální v délce vstupu $\ln q$
     * $O(L_q[0, c]) = O(e^{c\ln \ln q}) = O((\ln q)^c)$ -- polynomiální v délce vstupu $\ln q$
@@ -218,7 +219,7 @@ $$
 $$
 * Výraz je minimální pro $m = c\sqrt{n \ln n}$, asymptotická složitost je potom 
 $$
-O(exp((c+o(1))\sqrt{n\ln n}))
+O(\exp((c+o(1))\sqrt{n\ln n}))
 $$
 Což odpovídá 
 $$

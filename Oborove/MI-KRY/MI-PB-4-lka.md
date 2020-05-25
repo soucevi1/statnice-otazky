@@ -81,20 +81,21 @@ Bity podklíčů jednotlivých rund se přesunou na pravou stranu výrazu: v sum
 **Aproximace SBOXů:**
 * **Určit aproximované části:** nelineární (SBOXy)
 * **Konstrukce lineární aproximační tabulky:** obsahuje LPB všech možných dvojic vstup-výstup SBOXu
+    * např. položka na pozici $[6,B]$ je počet případů ($\Rightarrow \text{LPB}$), kdy $X_2\oplus X_3 = Y_1 \oplus Y_3 \oplus Y_4$, tedy $6= 11_{10} = B_{16}$ pro vstup do SBOXu $X_1, X_2, X_3, X_4$ a výstup $Y_1, Y_2, Y_3, Y_4$
 * Podle tabulky **nalézt výrazy,** kterými budou jednotlivé **SBOXy aproximovány:** cílem je co největší LPB
-* Vytvořit **lineární aproximační výraz** pro $R-1$ rund, podle něj spočítat LPB "aktivních" SBOXů
+* Vytvořit **lineární aproximační výraz** pro $R-1$ rund
     * Výraz je ve tvaru $U_i \oplus U_{j} \oplus ... \oplus U_n \oplus P_k \oplus P_{l} \oplus ... \oplus P_{m} = 0$
     kde $P$ jsou bity OT, $U$ bity vstupu po posledního SBOXu
-    * Tvorba výrazu postupným dosazováním aproximačních výrazů
-* Z lineárního aproximačního výrazu lze pomocí Piling-up věty spočítat **teoretický LPB** aproximace (cíl -- co největší)
+    * Tvorba výrazu postupným dosazováním aproximačních výrazů zvolených v tabulce
+* Z lineárního aproximačního výrazu (zvolených aproximací SBOXů) lze pomocí Piling-up věty spočítat **teoretický LPB** aproximace (cíl -- co největší)
 
 **Extrakce bitů klíče:**
 * Pro každou dvojici OT a příslušný ŠT ($N$ párů):
-    * Pro každou možnou hodnotu části podklíče z ŠT **zpětnou substitucí** získat $U_i, U_j, ..., U_n$ a pro odpovídající PT **vyhodnotit vytvořený výraz**
+    * Pro každou možnou hodnotu části podklíče z ŠT **zpětnou substitucí** získat $U_i, U_j, ..., U_n$ a pro odpovídající PT **vyhodnotit lineární aproximační výraz**
         * Zpětná substituce: $SBOX^{-1}(K \oplus ŠT)$
         * Hledaná část podklíče: pouze ta, které se týká výstup z aktivních SBOXů poslední rundy
-    * Pokud je výraz pro danou hodnotu pravdivý, **inkrementovat jeho čítač**
+    * Pokud je lineární aproximační výraz pro zpětně získané $U_i, ..., U_n$ pravdivý, **inkrementovat čítač pro podklíč**
 * Pro každou hodnotu podklíče **spočítat** 
 $|\text{bias}| = \frac{|\text{čítač}-\frac{N}{2}|}{N}$
 * Největší $\text{bias} \Rightarrow$ **kandidát na podklíč** 
-*(Největší bias by měl být blízký teoretickému LPB spočítanému při aproximaci. Odchylka může být způsobena nedostatečným počtem dvojit OT-ŠT nebo neúplnou nezávislostí vzorků)*
+*(Největší bias by měl být blízký teoretickému LPB spočítanému při aproximaci. Odchylka může být způsobena nedostatečným počtem dvojic OT-ŠT nebo neúplnou nezávislostí vzorků)*

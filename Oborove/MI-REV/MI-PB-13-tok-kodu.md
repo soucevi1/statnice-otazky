@@ -56,7 +56,7 @@ za_smyčkou
 
 ---
 
-#### Reverzování funkcí -- Prolog, tělo epilog
+#### Reverzování funkcí: Prolog, tělo, epilog
 
 Každá funkce má:
 * **Prolog** (volitelně): několik prvních instrukcí, které tvoří rámec zásobníku, alokují prostor pro lokální proměnné, zajístí zarovnání zásobníku a uloží všechny registry, které je nutno zachovat. Mohou uložit i kanárka nebo strukturu pro obsluhu výjimek
@@ -77,7 +77,7 @@ Každá funkce má:
 
 **Analýza rámce zásobníku:**
 
-* Rozdělení prostoru vytvořeného iinstrukcí `sub esp, __LOCAL_SIZE`
+* Rozdělení prostoru vytvořeného instrukcí `sub esp, __LOCAL_SIZE`
 * Analýza instrukcí pracujících se zásobníkem (`mov, push, lea, ...`)
     * V každé instrukci zaměření na: offset (pozice v zásobníku), velikostní modifikátor (byte, word, dword...)
 
@@ -89,7 +89,7 @@ Každá funkce má:
 **Analýza znamének typů:**
 * Podle aritmetických instrukcí a jim oodpovídajících instrukcí `cmp/test`, `jxx`:
     * Pokud skok založen na příznaku `CF`, jde o bezznaménkový typ
-    * Pokud na `SF`/`OF`, jde znaménkový
+    * Pokud na `SF`/`OF`, jde o znaménkový
 
 **Analýza API volání:**
 * Volání externích (zdokumentovaných) modulů -- lze odvodit typy, délky a význam parametrů
@@ -100,11 +100,13 @@ Každá funkce má:
 
 **Adresa vstupního bodu:** `AddressOfEntryPoint` v Optional Header PE souboru
 
-Vstupní bod poskytnut runtime knohovnou jazyka (`mainCRTStartup`): 
-* Volání **inicializátorů**
-    * Ruční inicializátory: `#pragma section(".CRT$XIB")`
+Vstupní bod poskytnut runtime knihovnou jazyka (`mainCRTStartup`): *(CRT = C Run-Time)*
+* Volání **inicializátorů** 
+    * Inicializace globálních proměnných, standardních typů, globálních konstant
+    * Ruční inicializátory: `#pragma section(".CRT$XIB")` - umístění ukazatele na funkci do sekce inicializátorů
     * Funkce `_initterm_e`: Procházení pole s ukazateli na inicializační funkce, volání funkcí
-* **Terminátory:** Ukazatele na funkce v poli, na které ukazují `__onexitbegin` a `__onexitend`. Funkce se volají po zavolání C funkce `exit`
+* **Terminátory:** Funkce volané po ukončení programu
+    * Ukazatele na funkce v poli, na které ukazují `__onexitbegin` a `__onexitend`. Funkce se volají po zavolání C funkce `exit`
 
 Nalezení `main`: často je u konce vstupní funkce, pozná se podle předávaných argumentů
 
@@ -118,11 +120,11 @@ API `EncodePointer`/`DecodePointer`
 **Podpora hot-patching:** Instrukce `nop` před začátkem funkce -- snadná úprava bez nutnosti restartovat aplikaci
 Ze začátku funkce se skočí na začátek nopů, kam je zapsán skok na upravenou funkci
 
-**Skok na instrukci `jmp`:** umožňje za běhu nahradit libovolnou funkci
+**Skok na instrukci `jmp`:** umožňuje za běhu nahradit libovolnou funkci
 
 **Import Address Table:** 
 * Jména modulů a symbolů (nebo jejich pořadová čísla) jsou v **importním adresáři** PE souboru
 * Používání nepřímých skoků -- IAT obsahuje adresy importovaných funkcí
-* Změna v IAT -- přesměrování všech voání daného API
+* Změna v IAT -- přesměrování všech volání daného API
     * IAT standardně read-only, ale zápis lze povolit (např. pomocí `VirtualProtect`)
     * Lze se dostat i za hranice procesu

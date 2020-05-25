@@ -95,7 +95,7 @@ $d_{k-1}$ je vždy $1$. Jak získat $d_{k-2}$?
 
 Pokud bit $d_{k-2} = 1$, bude během square-and-multiply vypočítána hodnota $c^2\cdot c$ *(square, pak multiply)*
 
-Pokud bit $d_{k-2} = 0$, operace $c^2\cdot c$ se nevypočítá.
+Pokud bit $d_{k-2} = 0$, operace $c^2\cdot c$ se neprovede.
 
 **Průběh útoku na *multiply*:**
 * Orákulum $O$ o zprávě $c$
@@ -110,14 +110,14 @@ Pokud bit $d_{k-2} = 0$, operace $c^2\cdot c$ se nevypočítá.
 * Pokud se časy $F_0$ a $F_1$ významně liší, $d_{k-2} = 1$, jinak $d_{k-2} = 0$
 * Se známým $d_{k-2}$ lze opakovat pro $d_{k-3}$ atd.
 
-Pokud $d_{k-2} = 1$, **proběhne *multiply*,** které obsahuje **datově závislé odčítání,** a časy $F_1$ tak budou delší než časy $F_0$
+Pokud $d_{k-2} = 1$, pak **proběhne *multiply*,** které obsahuje **datově závislé odčítání,** a časy $F_1$ tak budou zaručeně delší než časy $F_0$
 
 Pokud $d_{k-2} = 0$, ***multiply* vůbec neproběhne** a rozdělení na $C_1$ a $C_0$ tak pozbývá smysl (bude se jevit jako **náhodné**)
 
 **Průběh útoku na *square*:**
-Pokud $d_{k-2} = 1$, a algoritmus zastaví těsně před podmínkou rozhodující o provedení *multiply*, následující operace jsou *multiply* ($c_{temp}\cdot c$) a potom *square* ($(c_{temp}\cdot c)^2$).
+Pokud $d_{k-2} = 1$ a Square-and-Multiply zastaví těsně před podmínkou rozhodující o provedení *multiply* (vnitřní stav je $c_{temp}$), následující operace jsou *multiply* ($c_{temp}\cdot c$) a v další iteraci potom *square* ($(c_{temp}\cdot c)^2$).
 
-Pokud $d_{k-2} = 0$, a algoritmus zastaví těsně před podmínkou rozhodující o provedení *multiply*, následující operace je pouze *square* ($c_{temp}^2$).
+Pokud $d_{k-2} = 0$ a Square-and-Multiply zastaví těsně před podmínkou rozhodující o provedení *multiply*, následující operace je pouze *square* ($c_{temp}^2$) v následující iteraci.
 
 
 * Dvě orákula: $O_1$ pro $d_{k-2}=1$ a $O_0$ pro $d_{k-2}=0$:
@@ -138,7 +138,7 @@ Pokud $d_{k-2} = 1$, dává smysl dělení do podmnožin $C_{11},C_{10}$, proto�
 
 Pokud $d_{k-2} = 0$, dává smysl dělení do podmnožin $C_{01},C_{00}$, protože se multiply neprovede, ale při square může odečtení taky nastat.
 
-Tento způsob funguje i pro variantu algoritmu **square-and-multiply-always** (dummy násobení pro $d_{i} = 0$)
+Tento způsob funguje i pro variantu algoritmu **square-and-multiply-always** (dummy násobení pro $d_{i} = 0$) -- sice se při $d_{k-2} = 0$ násobí, ale násobí se dummy proměnná a ne $c$, takže sledované provedení/neprovedení odečtení tím není ovlivněno
 
 **Opatření proti časovacím útokům na RSA:**
 * kompletně datově nezávislé operace (složité např. kvůli cache)
@@ -210,7 +210,7 @@ Kryptografická techinika umožňující dosáhnout určitých vlastností prost
 
 **Použití:**
 * maskování vlastností (délka, struktura)
-* doplnění na potřebnou délku
+* doplnění na potřebnou délku (blok)
 * ochrana proti pozměnění
 
 **Požadavky:** 
@@ -235,9 +235,9 @@ Server zpracovávající zprávy šifrované blokovou šifrou v režimu CBC
 
 Napřed testuje **padding,** potom ověřuje **integritu zprávy**, umožňuje odlišit chybu paddingu od chyby integrity.
 
-Útočník zná $IV, ŠT_1, ŠT_2, ŠT_3$ a použité schéma paddingu. **Chce zjistit $OT_2$.**
+Útočník zná $IV, ŠT_1, ŠT_2, ŠT_3$ a použité schéma paddingu (zde PKCS). **Chce zjistit $OT_2$.**
 
-* **Podlední byte $OT_2$** má skutečnou (neznámou) hodnotu $a_1$
+* **Poslední byte $OT_2$** má skutečnou (neznámou) hodnotu $a_1$
 * **Útočník si tipne,** že hodnota posledního bytu $OT_2$ je $b_1$
 * Útočník k poslednímu bytu $ŠT_1$ **naxoruje** $b_1 \oplus \mathrm{0x01}$
     * Poslední byte $OT_2$ bude po dešifrování $a_1 \oplus b_1 \oplus \mathrm{0x01}$
@@ -258,7 +258,7 @@ Použít šifrovací mód, které nepotřebuje padding (CTR)
 
 ---
 
-#### PAdding u asymetrických šifer
+#### Padding u asymetrických šifer
 
 **Malleabilita:** útočník může pozměnit OT předvídatelným způsobem, aniž by prolomil šifru
 

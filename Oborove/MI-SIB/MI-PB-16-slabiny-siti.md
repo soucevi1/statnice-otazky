@@ -3,8 +3,7 @@
 
 ---
 
-#### Síťová bezpečnost
-
+#### Pojmy
 **Event:** pozorovatelný jev v systému nebo síti
  
 **Adverse event:** event s negativními důsledky, např. pád systému, packet flood, zvýšení oprávnění
@@ -43,7 +42,7 @@ Firewallem by se měl chránit každý segment lokální sítě
 
 **Typy:**
 * Software firewall: ochrana jednoho stroje
-* **Packet Filter:** kontrola každého pakety, aplikace pravidel
+* **Packet Filter:** kontrola každého paketu, aplikace pravidel
 * **Application Layer:** "porozumění" určitým aplikacím a protokolům (FTP, DNS, web, ...)
 * **Stateful Filter:** udržuje sessions síťových toků, detekuje pakety, které do nich nepatří
 * **NAT:** poskytuje základní ochranu
@@ -136,13 +135,13 @@ Firewallem by se měl chránit každý segment lokální sítě
         * Komunikace malware
         * Header Bit crafting
         * ICMP data exfiltration (data buď v payloadu nebo zakódovaná do intervalů)
-        * DNS: request na `base64encodedpayload.attackersite.com`, kde `attackersite.com` je útočníkova stránka s DNS serverem
-        * Detekce: specifické signatury, anomálie (abnormálně velké pakety, hodně ICMP,DNS)
+        * DNS: request na `<base64encodedpayload>.attackersite.com`, kde `attackersite.com` je útočníkova stránka s DNS serverem
+        * Detekce: specifické signatury, anomálie (abnormálně velké pakety, hodně ICMP, DNS)
     * Tunely, VPN
 
 **Monitoring útoků:**
 * Host-based (logy, auditové nástroje) vs. Network-based (aktivní -- ping, traceroute, ... vs. pasivní)
-* Sledování datových jednotek:
+* Sledování datových jednotek (paketů/rámců/bytů/...):
     * Counter: vysokoúrovňová informace (celkový počet paketů/bytů/chyb, ztrátovost)
     * Packet: "raw data", Deep Packet Inspection, pattern matching
     * Flow: vysokoúrovňový přehled, agregace
@@ -177,6 +176,49 @@ Všechny pakety patřící do jednoho flow mají společné vlastnosti odvozené
 * Ignorantství
 
 ----
+
+#### ISO/OSI a útoky
+Dostál se na to prý ptá: https://fit-wiki.cz/%C5%A1kola/st%C3%A1tnice/zkusenosti2019_leto/zku%C5%A1enosti_ze_st%C3%A1tnic
+
+*(když nevíš, piš DoS -- na každé vrstvě se dá něco rozbít)*
+
+* **Layer 1 (fyzická)**
+    * Fyzická krádež zařízení
+    * Mechanické poškození zařízení
+    * Neautorizované změny v prostředí -- odpojování kabelů, napájení
+
+* **Layer 2 (linková)**
+    * Úmyslné Spanning Tree errors: Tvorba loopů ve spanning tree -- rámce cyklí donekonečna
+    * ARP Cache Poisonong / ARP Spoofing: Podvržení odpovědi na ARP dotaz (neustálé posílání odpovědi s útočníkovou MAC adresou), provoz je přesměrován na zařízení útočníka
+
+* **Layer 3 (síťová)**
+    * Route spoofing: Propagace falešné síťové topologie
+    * IP address spoofing: Falešná zdrojová adresa na škodlivých paketech
+    * Ping flood
+    * ICMP útoky (Covert channels)
+
+* **Layer 4 (transportní):**
+    * Port scanning
+    * SYN flood
+    * Zranitelnosti SSL/TLS (viz okruh 17)
+
+* **Layer 5 (session)**
+    * slabá/žádná autentizace
+    * přihlašovací údaje v plaintextu
+    * session hijacking (odposlech session ID, jeho neoprávněné použití)
+
+* **Layer 6 (prezentační)**
+    * špatné zacházení se vstupem
+
+* **Layer 7 (aplikační)**
+    * SQL Injection
+    * Rogue DHCP Server
+    * HTTP flood
+    * Cross Site Scripting
+    * Slow Lorris: DoS, kde server není zahlcen obřím návalem dat, ale posílá se jenom nezbytné množství dat, aby si server držel otevřená spojení, čímž vyčerpal svoje prostředky
+    * SSL Stripping: donucení HTTPS stránky použít HTTP
+
+---
 
 #### Dynamic Host Configuration Protocol
 

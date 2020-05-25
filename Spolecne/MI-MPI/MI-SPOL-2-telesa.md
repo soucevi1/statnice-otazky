@@ -14,7 +14,7 @@ Buď $R=(M, +, \cdot)$ okruh.
 * neutrální prvek aditivní grupy je **nulový prvek** (0), neutrální prvek multiplikativního monoidu je **jednička**
 
 Triviální okruh: $(\{0\}, +, \cdot)$ (pokud $0\cdot0=0)$
-$(\Z,+,\cdot)$ je okruh, ale $(\Z)N,+,\cdot)$ není
+$(\Z,+,\cdot)$ je okruh, ale $(\N,+,\cdot)$ není
 
 Nenulové prvky $a,b \in M$ z okruhu $(M, +, \cdot)$ jsou **dělitelé nuly**, právě když $a\cdot b = b \cdot a = 0$. **Obor integrity** je komutativní okruh, ve kterém neexistují dělitelé nuly.
 

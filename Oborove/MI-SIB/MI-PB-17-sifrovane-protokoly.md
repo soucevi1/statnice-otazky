@@ -6,6 +6,7 @@
 #### SSL/TLS
 
 Množina kryptografických protokolů, které poskytují bezpečnou komunikaci po internetu na úrovni trapsportní vrstvy.
+SSL zastaralý, nahrazen TLS
 
 **Vrstvy:** Nad protokolem transportní vrstvy (TCP/UDP) je nízkoúrovňový TLS Record, nad kterým jsou TLS protokoly vyšší úrovně
 * Nižší: 
@@ -46,9 +47,9 @@ Množina kryptografických protokolů, které poskytují bezpečnou komunikaci p
         * Zpráva poslána klientem i serverem
     * **Application Data Protocol**
 
-**Typický scénář na webu:** Server se sercerovým certifikátem, anonymní klient
+**Typický scénář na webu:** Server se serverovým certifikátem, anonymní klient
 Serverový certifiát:
-* self-signed: prohlížec uživatele upozorní na nedůvěryhodnost
+* self-signed: prohlížeč uživatele upozorní na nedůvěryhodnost
 * vystaven důvěryhodnoou CA: dražší, šifrování+autentizace
 
 ---
@@ -73,13 +74,14 @@ Serverový certifiát:
 * Mnoho implementací neúplných nebo nesprávných
 * **Zranitelnost FREAK:**
     * Factoring RSA Export Asymmetric Keys
-    * Omezená délka klíče exportní RSA )512 b)
+    * Omezená délka klíče exportní RSA (512 b) 
+    * *(exportní šifra -- šifra dost slabá na to, aby mohla být v devadesátých letech exportována z USA)*
     * Vynucení exportních šifer při MITM -- servery stále podporují nepoužívané exportní šifry
 
 **Útok na služby nad protokolem:**
 * **Zranitelnost Heartbleed:**
     * Heartbeat: mechanismus ověření, zda je spojení stále funkční
-    * Nesprávná kontrola vstupů: knihovna odeslala požadovaný počet bytů nezávisle na tom, kolik přijala -- nadbtečné byty obsahovaly hodnoty z paměti
+    * Nesprávná kontrola vstupů: knihovna odeslala požadovaný počet bytů nezávisle na tom, kolik přijala -- nadbytečné byty obsahovaly hodnoty z paměti
 
 **Útok na uživatele:**
 * Nesprávné používání dostupných technologií
@@ -123,7 +125,7 @@ Zaručuje CIA
     `dest IP (R2) | src IP (R1) | dest IP(PC2) | dest IP (PC1) | zašifrovaná data | CRC`
 * **Site-to-site:** vliv na celou síť
 * **Remote Access VPN:** jednotliví uživatelé mají přístup do sítě
-* **Split Tunnel:** Při remote access zaměstnance z domova jde přes firmu jenom firemní provoz, ostatní jde do internetu
+* **Split Tunnel:** Při remote access zaměstnance z domova jde přes firmu jenom firemní provoz, ostatní jde do internetu přímo
 
 ---
 
@@ -167,7 +169,7 @@ Distribuce veřejných klíčů bez kontaktu s třetím důvěryhodným subjekte
 * Dobu platnosti certifikátu
 * Další údaje vytvořené certifikační autoritou
 
-Certifikát **podepsán soukromým klíčem CA** -- každý účastním komunikace může ověřit veřejným klíčem CA
+Certifikát **podepsán soukromým klíčem CA** -- každý účastník komunikace může ověřit veřejným klíčem CA
 
 **Certifikční autorita:** Důvěryhodná třetí strana, která na základě žádostí vydává a aktualizuje certifikáty
 

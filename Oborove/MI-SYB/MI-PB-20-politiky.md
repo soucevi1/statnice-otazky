@@ -6,7 +6,7 @@
 **Systémová bezpečnost:** 
 Ochrana: 
 * **Důvěrnosti dat:** 
-    * Zabraňuje neautorizovaným subjektům interakce s prostředky
+    * Zabraňuje neautorizovaným subjektům interagovat s prostředky
     * Hrozba: crackování šifrovaných dat, man-in-the-middle, spyware
 * **Integrity dat:**
     * Zabraňuje nežádoucím modifikacím dat
@@ -21,7 +21,7 @@ Systémová bezpečnost **není absolutní** - Žádný systém není perfektně
 
 ---
 
-#### Politika
+#### Politiky
 
 **Bezpečnostní politika:** požadavky a cíle na systém/síť, aby byla dosažena jejich bezpečnost (např. Alice může číst soubor F)
 
@@ -35,12 +35,12 @@ Systémová bezpečnost **není absolutní** - Žádný systém není perfektně
 
 **Vrstvy bezpečnostní politiky:**
 * Vrstva 1: **Základní politika**
-    * Dlouhodoě plánovaná (na několik let)
+    * Dlouhodobě plánovaná (na několik let)
 * Vrstva 2: **Operační pravidla a standardy bezpečnostních opatření**
     * Pravidla a standardy k zajištění informační bezpečnosti specifikované v základní politice 
     * Střednědobé (jednou ročně)
 * Vrstva 3: **Procedury a pokyny**
-    * Speficické procedurya činnosti pro plnění pravidel
+    * Speficické procedury a činnosti pro plnění pravidel
     * Krátkodobé plány (několik ročně)
 
 ---
@@ -60,7 +60,7 @@ Systémová bezpečnost **není absolutní** - Žádný systém není perfektně
 * **Riziko** = hrozba $\times$ zranitelnost
 * **Opatření:** cokoliv, co odstraní nebo zmenší zranitelnost
     * Fyzická: psi, ploty, zámky
-    * Administrativní: zaměření na personál a bussiness praktiky (školení, audity, oddělení povinností) 
+    * Administrativní: zaměření na personál a bussiness praktiky (školení, audity, vymezení povinností) 
     * Logická: logická izolace, segmentace (VLAN, virtualizace), access control, authentication, authorization, logging, auditing
 
 ---
@@ -92,11 +92,11 @@ Každý proces izolován vynucováním access bounds (limitů na použitelné pa
 * Uživatel musí mít příslušná oprávnění
 
 **Multilateral security:** 
-* Bere v potaz různé (někdy konfliktní) požadavky na bepečnost, hledá mezi nimi rovnováhu
+* Bere v potaz různé (někdy konfliktní) požadavky na bezpečnost, hledá mezi nimi rovnováhu
 * Např. uživatelé z různých geografických regionů nemůžou vzájemně přistupovat ke svým datům
 
 **Pozitivní model:** definice, co vše je povoleno (whitelisting)
-**Negativní model:** co vše je zakázáno (blacklisting), obtížnější na definování, nelze zahcytit 100 % hrozeb
+**Negativní model:** co vše je zakázáno (blacklisting), obtížnější na definování, nelze zachytit 100 % hrozeb
 
 **Model Bell-LaPadula:**
 * Multilevel

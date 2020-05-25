@@ -5,7 +5,7 @@
 
 **Diferenciální kryptoanalýza:** Využívá vysokou pravděpodobnost určitých výskytů  rozdílů OT a rozdílů v poslední rundě šifry
 
-Pokud $X = [X_1X_2...X_n]$ jsou vstupy a $Y = [Y_1Y_2...Y_n]$ výstupy kryptosystému, máme dva vstupy $X',X''$ a dva odpovídající výstupy $Y',Y''$:
+Pokud $[X_1X_2...X_n]$ jsou vstupy a $[Y_1Y_2...Y_n]$ výstupy kryptosystému, máme dva vstupy $X',X''$ a dva odpovídající výstupy $Y',Y''$:
 **Vstupní rozdíl** je $\Delta X = X' \oplus X'' = [\Delta X_1 \Delta X_2 ... \Delta X_n]$, kde $\Delta X_i = X_i' \oplus X_i''$.
 **Výstupní rozdíl** je $\Delta Y = Y' \oplus Y'' = [\Delta Y_1 \Delta Y_2 ... \Delta Y_n]$, kde $\Delta Y_i = Y_i' \oplus Y_i''$
 
@@ -22,14 +22,14 @@ Vysoce pravděpodobná diferenciální charakteristika: využití informace přo
 #### Průběh DK
 
 **Analýza SBOXů**
-    * **Tvorba diferenční distribuční tabulky:** s jakou pravděpodobností se $\Delta Y$ vyskytuje pro dané $\Delta X$
-        * Ideální SBOX: 1 výskyt každého páru $(\Delta X, \Delta Y)$
-    * **Klíčovaný SBOX:** Klíč naxorován na vstup každého SBOXu
-        * Při DK žádný vliv:
-        Pokud $\Delta W = [W'_1 \oplus ... \oplus W_n'']$ diference vstupu do SBOXu, 
-        $\Delta W_i = W_i' \oplus W_i'' = (X_i' \oplus K_i) \oplus (X''_i \oplus K_i) = X_i' \oplus X_i'' = \Delta X_i$
-        * Klíčovaný SBOX má stejnou diferenční distribuční tabulku jako neklíčovaný
-* **Tvorba diferenciální charakteristiky** pro $R-1$ rundy
+* **Tvorba diferenční distribuční tabulky:** s jakou pravděpodobností se $\Delta Y$ vyskytuje pro dané $\Delta X$
+    * Ideální SBOX: 1 výskyt každého páru $(\Delta X, \Delta Y)$
+* **Klíčovaný SBOX:** *(maskování)* Klíč naxorován na vstup každého SBOXu
+    * Při DK žádný vliv:
+    Pokud $\Delta W = [W'_1 \oplus W_1'',  ..., W_n' \oplus W_n'']$ diference vstupu do SBOXu, 
+    $\Delta W_i = W_i' \oplus W_i'' = (X_i' \oplus K_i) \oplus (X''_i \oplus K_i) = X_i' \oplus X_i'' = \Delta X_i$
+    * Klíčovaný SBOX má stejnou diferenční distribuční tabulku jako neklíčovaný
+* **Tvorba diferenciální charakteristiky** pro $R-1$ rund
     * Volba aktivních SBOXů a jejich vstupních a výstupních rozdílů (cíl: vysoká pravděpodobnost)
     * Z nich počítána **celková pravděpodobnost diference šifry** jako $\prod_{i=1}^k p_i$, kde $p_i$ je pravděpodobnost výskytu zvolené výstupní diference pro zvolenou vstupní diferenci (z tabulky)
 

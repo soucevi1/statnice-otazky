@@ -147,34 +147,27 @@ Funkce se spojitými druhými parciálními derivacemi **konvexní**, právě kd
 
 ---
 
-#### Vázané extrémy
+#### Vázané extrémy s rovnostními omezeními
 
-Úloha vázaného extrému je minimalizování $f(x)$ za podmínek $g_j(x) = 0, j \in \hat m$
- a $h_k(x) \leq 0, k \in \hat p$, kde $f,g,h$ jsou funkce $D \rightarrow \R, D \subset \R^n$
+Úloha vázaného extrému s rovnostními omezeními je minimalizování $f(x)$ za podmínek $g_j(x) = 0, j \in \hat m$, kde $f,g$ jsou funkce $D \rightarrow \R, D \subset \R^n$
 
  **Přípustná řešení:**
- $M = \{x \in \R^n: (\forall j \in \hat m)(g_j(x)=0) \wedge (\forall k \in \hat p)(h_k(x) \leq 0)\}$
+ $M = \{x \in \R^n: (\forall j \in \hat m)(g_j(x)=0)\}$
  (množina řešení, kde jsou splněny podmínky)
 
- Funkce $L: M \times \R^m \times \R^p \rightarrow \R$ definovaná jako
+ Funkce $L: M \times \R^m \rightarrow \R$ definovaná jako
  $$
-L(x;\lambda,\mu) = f(x) + \sum_{j=1}^m \lambda_jg_j(x) + \sum_{k=1}^p \mu_kh_k(x)
+L(x;\lambda) = f(x) + \sum_{j=1}^m \lambda_jg_j(x)
  $$
 
  je **Lagrangeova funkce**.
- Koeficienty $\lambda = (\lambda_1, ..., \lambda_m)$ a $\mu = (\mu_1, ..., \mu_p)$  jsou **Lagrangeovy multiplikátory**
+ Koeficienty $\lambda = (\lambda_1, ..., \lambda_m)$  jsou **Lagrangeovy multiplikátory**
 
- **Množina aktivních omezení** při nerovnostních vazbách:
- $$
- B(x) = \{k \in \hat p: h_k(x) = 0\}
- $$
-(indexy těch nerovnostních vazeb, u kterých je $x$ na jejich hranici)
-
-#### Postačující podmínka existence ostrého lokálního minima
-Nechť $f, g_j, j \in \hat m, h_k, k \in \hat p$ mají spojité všechny druhé parciální derivace na nějaké otevřené nadmnožině $M$. Pokud trojice $(x^*, \lambda^*, \mu^*) \in M \times \R^m \times \R^p$ splňuje následující podmínky, potom je $x^*$ bodem ostrého lokálního minima
+#### Postačující podmínka existence ostrého lokálního minima při rovnostních omezeních
+Nechť $f, g_j, j \in \hat m$ mají spojité všechny druhé parciální derivace na nějaké otevřené nadmnožině $M$. Pokud dvojice $(x^*, \lambda^*) \in M \times \R^m$ splňuje následující podmínky, potom je $x^*$ bodem ostrého lokálního minima
 Podmínky:
-* *(optimalita)* $\forall i, \frac{\delta L}{\delta x_i} (x^*, \lambda^*, \mu^*)=0$ (nulový gradient Lagrangeovy funkce podle $x$)
-* *(Karush-Kuhn-Tucker)* $\forall k \in \hat p$ platí buď $\mu_k^* = 0$ nebo $h_k(x^*) = 0$
-* *(podmínka 2. řádu)* pro každý vektor $0 \neq z \in \R^n$ splňující následující podmínky, platí $z^T \nabla^2_x L(x^*;\lambda^*; \mu^*) z > 0$ (PD Hessián za určitých podmínek). Podmínky:
-    * $z^T \nabla g_j(x^*)= 0 (\forall j \in \hat m)$
-    * $z^T \nabla h_k(x^*)= 0 (\forall k \in B(x^*))$
+* *(optimalita)* $\forall i, \frac{\delta L}{\delta x_i} (x^*, \lambda^*)=0$ (nulový gradient Lagrangeovy funkce podle $x$)
+* *(podmínka 2. řádu)* pro každý vektor $0 \neq z \in \R^n$ splňující 
+$z^T \nabla g_j(x^*)= 0 (\forall j \in \hat m)$
+platí 
+$z^T \nabla^2_x L(x^*;\lambda^*) z > 0$ (PD Hessián za určitých podmínek).

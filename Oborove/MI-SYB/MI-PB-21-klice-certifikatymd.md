@@ -148,7 +148,7 @@ Distribuce veřejných klíčů bez kontaktu s třetím důvěryhodným subjekte
 * Dobu platnosti certifikátu
 * Další údaje vytvořené certifikační autoritou
 
-Certifikát **podepsán soukromým klíčem CA** -- každý účastním komunikace může ověřit veřejným klíčem CA
+Certifikát **podepsán soukromým klíčem CA** -- každý účastník komunikace může ověřit veřejným klíčem CA
 
 **Trust anchor:** entita, jejíž důvěryhodnost není odvozena, ale předpokládána
 
@@ -165,7 +165,7 @@ Certifikát **podepsán soukromým klíčem CA** -- každý účastním komunika
     * $A \rightarrow B: \text{cert}_A, t_A, B, E_{S_A}(t_A, B)$
 * Jednosměrná s náhodnými čísly:
     * $A \leftarrow B: r_B$
-    $A \rightarrow B: \text{cert}_A, r_A, B, E{S_A}(r_A, r_B, B)$
+    $A \rightarrow B: \text{cert}_A, r_A, B, E_{S_A}(r_A, r_B, B)$
 * Vzájemná s náhodnými čísly:
     * $A \leftarrow B: r_B$
     $A \rightarrow B: \text{cert}_A, r_A, B, E_{S_A}(r_A, r_B, B)$
@@ -175,7 +175,7 @@ Certifikát **podepsán soukromým klíčem CA** -- každý účastním komunika
 * Klíč by nikdy neměl opustit zabezpečené úložiště
 * Řešení:
     * **čipová karta** (koncový uživatel)
-    * **Hardware Security Module**(server)
+    * **Hardware Security Module** (server)
 
 ---
 
@@ -264,6 +264,12 @@ Centralizace: jeden autentizační server
 * Umožňuje Single-Sign-On (uživatel se autentizuje jednou a má přístup k více aplikacím)
 * **Model důvěry:** všichni věří Kerberos serveru, neexistuje výchozí důvěra mezi jinými servery, síť není důvěryhodná, uživatel věří lokálnímu stroji
 * **Průběh:**
+$LM$ - lokální stroj
+$AS$ - autentizační server
+$TGS$ - ticket granting server
+$AD$ - síťová adresa
+$t$ - timestamp
+$\text{server}$ - server, se kterým chce uživatel pracovat
     1. Uživatel se přihlásí na lokálním stroji, vyžádá službu na serveru
         * $LM \rightarrow AS : ID_{LM}||ID_{TGS}||t_1$
     2. Autentizační server ověří oprávnění, tvoří **ticket-granting ticket** a **session key** a zašifruje je klíčem vytvořeným z uživatelova hesla
@@ -272,7 +278,7 @@ Centralizace: jeden autentizační server
     3. Lokální stroj dešifruje zprávu, odešle ticket a autentizátor (jméno, síť, IP, čas) ticket-granting serveru
         * $LM \rightarrow TGS: ID_{\text{server}}||\text{ticket}_{TGS}||\text{auth}_{LM}$
         * $\text{auth}_{LM} = E_{K_{LM,TGS}}(ID_{LM}||AD_{LM}||t_3)$
-    4. Ticket-granting server dešifruje ticket a autentizátor, ověří požadavek, vytvoří ticket pro žádaný server (service-granting ticket)
+    4. Ticket-granting server dešifruje ticket a autentizátor, ověří požadavek, vytvoří ticket pro žádaný server (**service-granting ticket**)
         * $TGS \rightarrow LM: E_{K_{LM,TGS}}(K_{LM, \text{server}}||ID_{\text{server}}||t_4||\text{ticket}_{\text{server}})$
         * $\text{ticket}_{\text{server}} = E_{\text{server}}(K_{LM, \text{server}}||ID_{LM}||AD_{LM}||ID_{\text{server}}||t_4||\text{životnost}_4)$
     5. Lokální stroj pošle ticket a autentizátor žádanému serveru
@@ -287,6 +293,6 @@ Centralizace: jeden autentizační server
 
 * **Golden Ticket:** podvržený ticket-granting ticket (potřeba hash hesla KRBTGT účtu, jméno domény a SID, user ID)
 
-* **Silver Ticket:** podvržený service-granting ticket (omezenější dosah, ale potřeba jednodušší získat -- místo KRBTGT účtu stačí hash hesla service účtu)
+* **Silver Ticket:** podvržený service-granting ticket (omezenější dosah, ale jednodušší získat -- místo KRBTGT účtu stačí hash hesla service účtu)
 
 * **Kerberoasting:** získávání údajů service účtů z Active Directory (crackování ticketů šifrovaných heslem uživatele)

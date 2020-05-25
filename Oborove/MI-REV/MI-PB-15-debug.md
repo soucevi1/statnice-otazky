@@ -10,7 +10,7 @@ Dovoluje zkoumat aplikační kód, buď na úrovni zdrojového kódu nebo na úr
 
 **Použití v reverzním inženýrství:** 
 * Sledování toku kódu
-* Získání lepšího porozumění aplikaci
+* Lepší porozumění aplikaci
 * Zjištění používaných argumentů API, místa pádu aplikace, principu použitého algoritmu
 * Odstranění obfuskace/šifrování
 * Ověření hypotéz o chování aplikace
@@ -63,15 +63,15 @@ Debugger vytvoří nového debuggee, nebo se připojí k existujícímu.
     * Debugger obdrží `CREATE_PROCESS_DEBUG_EVENT` z prvního vlákna debuggeeho
 
 **Debugger zpracovává debugovací události:**
-* **CREATE_PROCESS_DEBUG_EVENT:** v debugovaném procesu vytvořen nový proces (vyvoláno systémem tešně před tím, než je program spuštěn v user-mode)
-* **CREATE_THREAD_DEBUG_EVENT:** v debugee vytvořeno nové vlákno
-* **EXCEPTION_DEBUG_EVENT:** v debugee došlo k výjimce (přístup k nedostupné paměti, spuštění instrukce breakpointu, dělní nulou, ...)
-* **EXIT_PROCESS_DEBUG_EVENT:** debuggee končí
-* **EXIT_THERAD_DEBUG_EVENT:** končí vlákno, které je součástí debuggee
-* **LOAD_DLL_DEBUG_EVENT:** debugge nahraje do paměti nové DLL (počátek programu nebo funkce `LoadLibrary`)
-* **UNLOAD_DLL_DEBUG_EVENT:** uvolnění DLL debuggeem (funkce `FreeLibrary`)
-* **OUTPUT_DEBUG_STRING_EVENT:** debuggee použil funkci `OutputDebugString`
-* **RIP_EVENT:** došlo k systémové chybě (interní chyba debuggeru, ne debuggeeho)
+* `CREATE_PROCESS_DEBUG_EVENT:` v debugovaném procesu vytvořen nový proces (vyvoláno systémem tešně před tím, než je program spuštěn v user-mode)
+* `CREATE_THREAD_DEBUG_EVENT:` v debugee vytvořeno nové vlákno
+* `EXCEPTION_DEBUG_EVENT:` v debugee došlo k výjimce (přístup k nedostupné paměti, spuštění instrukce breakpointu, dělní nulou, ...)
+* `EXIT_PROCESS_DEBUG_EVENT:` debuggee končí
+* `EXIT_THERAD_DEBUG_EVENT:` končí vlákno, které je součástí debuggee
+* `LOAD_DLL_DEBUG_EVENT:` debugge nahraje do paměti nové DLL (počátek programu nebo funkce `LoadLibrary`)
+* `UNLOAD_DLL_DEBUG_EVENT:` uvolnění DLL debuggeem (funkce `FreeLibrary`)
+* `OUTPUT_DEBUG_STRING_EVENT:` debuggee použil funkci `OutputDebugString`
+* `RIP_EVENT:` došlo k systémové chybě (interní chyba debuggeru, ne debuggeeho)
 
 ---
 
@@ -169,14 +169,14 @@ Obrana aplikace proti debugování. Snaha detekovat připojený debugger, ukonč
 * **Skenování procesů:**
     * Získání seznamu procesů, hledání jména debuggeru v něm
 * **Časování:**
-    * Ověření, zda funkec prováděny v normálním čase (milisekundy), nebo zda jsou zdržovány
+    * Ověření, zda funkce prováděny v normálním čase (milisekundy), nebo zda jsou zdržovány
     * Odhalení krokování, pozastavování
     * Anti-antidebug: zaháčkování časovacích funkcí
 * **Hledání instrukcí `int3` ve vlastním kódu:** kontrolní součty sama sebe 
 
 **Vměšování se do debugování:**
 * Výjimky:
-    * Vytvoření stovek výjimek $\Rightarrow$ nezvýší výrazně dobu běhu, ale otráví analytika $\Rightarrow$ vypnnutí uoproznění na výjimky, v některém z handlerů je skryt důležitý kód
+    * Vytvoření stovek výjimek $\Rightarrow$ nezvýší výrazně dobu běhu, ale otráví analytika $\Rightarrow$ vypnnutí upozornění na výjimky, v některém z handlerů je skryt důležitý kód
     * Instrukce `int3` přímo v programu 
         * zmatení debuggeru -- bez něj se vykoná následující instrukce, s ním výjimka `STATUS_BREAKPOINT`
         * odlišný tok kódu pro debugouvanou aplikaci
